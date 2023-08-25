@@ -1,6 +1,8 @@
 // console.log("hello")
 // require('dotenv').config()
 var express = require("express");
+const { nwfn1 } = require("./middleware/middleware");
+
 var app = express();
 //we can send data in many ways like query string , json , url etc.
 
@@ -23,13 +25,24 @@ var app = express();
 
 //Middleware
 
+// app.get(
+//   "/students",
+
+//   (req, res, next) => {
+//     req.query.name = "hamdaan khan";
+//     next();
+//   },
+
+//   (req, res) => {
+//     let name = req.query.name;
+//     res.send({ name: `hi ${name}` });
+//   }
+// );
+
+// import middleware
 app.get(
   "/students",
-
-  (req, res, next) => {
-    req.query.name = "hamdaan khan";
-    next();
-  },
+  nwfn1,
 
   (req, res) => {
     let name = req.query.name;
