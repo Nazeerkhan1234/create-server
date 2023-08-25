@@ -1,9 +1,9 @@
 // console.log("hello")
-// require('dotenv').config()
+// const { nwfn1 } = require("./middleware/middleware");
 var express = require("express");
-const { nwfn1 } = require("./middleware/middleware");
-
 var app = express();
+require('dotenv').config();
+
 //we can send data in many ways like query string , json , url etc.
 
 // app.get("/", function (req, res) {
@@ -40,19 +40,33 @@ var app = express();
 // );
 
 // import middleware
-app.get(
-  "/students",
-  nwfn1,
+// app.get(
+//   "/students",
+//   nwfn1,
+//   (req, res) => {
+//     let name = req.query.name;
+//     res.send({ name: `hi ${name}` });
+//   }
+// );
 
-  (req, res) => {
-    let name = req.query.name;
-    res.send({ name: `hi ${name}` });
-  }
-);
 
-// let port=process.env.port
-// app.listen(port,()=>{
-//     console.log(`the server is running on the port ${port}`)
-// });
+//application middleware 
+app.use((req,res,next)=>{
+if(req.method === 'GET'){
+  res.status(400).json({msg:"GET request is not allowed "})
+}else{
+  next();
+}
+})
 
-app.listen(3000);
+app.post('/students',(req,res)=>{
+  res.status(200).json({msg:`hi post method is allowed `})
+})
+
+
+
+ let port =process.env.port
+app.listen(port,()=>{
+    console.log(`the server is running on the port ${port}`)
+});
+
