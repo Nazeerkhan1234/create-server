@@ -1,13 +1,13 @@
 // console.log("hello")
 // const { nwfn1 } = require("./middleware/middleware");
-var express = require("express");
-var app = express();
-require('dotenv').config();
+// var express = require("express");
+// var app = express();
+// require('dotenv').config();
 
 //we can send data in many ways like query string , json , url etc.
 
 // app.get("/", function (req, res) {
-//     res.send({ message: "hello world"});
+//     res.send("hello world");
 //   });
 
 // app.post("/anil", function (req, res) {
@@ -15,7 +15,7 @@ require('dotenv').config();
 // });
 
 // app.get("/querystring", function (req, res) {
-//   res.send({ message: "hello", data: req.query});
+//   res.json({ message: "hello", data: req.query});
 // });
 
 // app.get("/students/:name", function (req, res) {
@@ -35,7 +35,7 @@ require('dotenv').config();
 
 //   (req, res) => {
 //     let name = req.query.name;
-//     res.send({ name: `hi ${name}` });
+//     res.json({ name: `hi ${name}` });
 //   }
 // );
 
@@ -45,23 +45,76 @@ require('dotenv').config();
 //   nwfn1,
 //   (req, res) => {
 //     let name = req.query.name;
-//     res.send({ name: `hi ${name}` });
+//     res.json({ name: `hi ${name}` });
 //   }
 // );
 
 
 //application middleware 
-app.use((req,res,next)=>{
-if(req.method === 'GET'){
-  res.status(400).json({msg:"GET request is not allowed "})
-}else{
-  next();
-}
-})
 
-app.post('/students',(req,res)=>{
-  res.status(200).json({msg:`hi post method is allowed `})
-})
+// app.use((req,res,next)=>{
+// if(req.method === 'GET'){
+//   res.status(400).json({msg:"GET request is not allowed "})
+// }else{
+//   next();
+// }
+// })
+
+// app.post('/students',(req,res)=>{
+//   res.status(200).json({msg:`hi post method is allowed `})
+// })
+
+
+// Errorhandling middleware
+
+// app.use((err,req,res,next)=>{
+//   console.error(err.stack);
+//   res.status(400).send('something went wrong');
+// })
+// app.get('/',(req,res)=>{
+//   res.send("hi & hello")
+// })
+
+
+
+// Email && password validation in express
+
+// const express = require('express');
+// const app = express();
+// require('dotenv').config();
+// const { body, validationResult } = require('express-validator');
+// app.use(express.json());
+// app.post('/hello', 
+// body('email')
+//.isEmail()
+//.withMessage('the email must contain @ and . symbol'),
+// body('password')
+//.isLength({min:5})
+//.withMessage('the length should be min 5 character'),
+// (req, res) => {
+//   const result = validationResult(req);//check valid or not ?
+//   if (!result.isEmpty()) {
+//     res.send({ errors: result.array() });
+//   }
+//   return res.send(`my Email is ${req.body.email} && password is ${req.body.password}!`);
+// });
+
+
+
+// user name validation in express
+// const express = require('express');
+// const { query, validationResult } = require('express-validator');
+// const app = express();
+// require('dotenv').config();
+// app.use(express.json());
+// app.get('/hello', query('person').notEmpty(), (req, res) => {
+//   const result = validationResult(req); //check valid or not ?
+//   if (result.isEmpty()) {
+//     return res.send(`Hello, ${req.query.person}!`);
+//   }
+
+//   res.send({ errors: result.array() });
+// });
 
 
 
